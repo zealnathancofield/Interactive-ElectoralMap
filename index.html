@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electoral College Explorer</title>
+<meta name="description" content="Interactive U.S. presidential election maps, 1948–2024, with county-level what-if scenarios for 2000–2024.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Electoral College Explorer</h1>
+    <p class="sub">Every presidential election since World War II. Pick a year, click a state to see its counties, or switch to What-If mode to change the outcome.</p>
+  </header>
+
+  <nav class="years" id="years" aria-label="Election year"></nav>
+
+  <section class="score" aria-live="polite">
+    <div class="cand dem"><span class="ev" id="evD">0</span><span class="nm" id="nmD"></span><span class="pv" id="pvD"></span></div>
+    <div class="mid"><span id="need"></span><span id="evO" class="other"></span><span id="verdict" class="verdict"></span></div>
+    <div class="cand rep"><span class="ev" id="evR">0</span><span class="nm" id="nmR"></span><span class="pv" id="pvR"></span></div>
+  </section>
+  <div class="bar" aria-hidden="true"><div class="d" id="barD"></div><div class="o" id="barO"></div><div class="t"></div><div class="r" id="barR"></div><div class="line" id="barLine"></div></div>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Mode">
+      <button id="mResults" aria-pressed="true">Actual results</button>
+      <button id="mWhatIf" aria-pressed="false">What-If</button>
+    </div>
+    <div class="seg" role="group" aria-label="Clicking a state" id="clickSeg" hidden>
+      <button id="cOpen" aria-pressed="true">Click opens state</button>
+      <button id="cFlip" aria-pressed="false">Click flips state</button>
+    </div>
+    <button class="btn" id="resetYear" hidden>Reset this year</button>
+    <button class="btn" id="clearYear" hidden>Clear map</button>
+  </div>
+
+  <main class="grid">
+    <div class="card mapcard">
+      <div class="maphead" id="maphead" hidden>
+        <button class="btn" id="back">← U.S. map</button>
+        <strong id="stateTitle"></strong>
+      </div>
+      <svg id="usmap" viewBox="0 0 975 610" role="img" aria-label="United States electoral map"></svg>
+      <svg id="stmap" role="img" aria-label="County map" hidden></svg>
+      <div class="chips" id="chips"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <aside class="card panel" id="panel" aria-live="polite"></aside>
+  </main>
+
+  <footer class="src">
+    <p><strong>Sources.</strong> State results and electoral votes: Wikipedia's per-election results tables (drawn from official state canvasses and the National Archives), cross-checked against the MIT Election Data + Science Lab state returns, 1976–2024.
+    County results: MIT Election Data + Science Lab (2000–2016) and T. McGovern's county-level results dataset (2020–2024). Where county totals don't add up to the official state total (overseas ballots, write-ins), the difference is kept as a statewide remainder.
+    Alaska reports results by legislative district, not county, so it has no county map. Map shapes: U.S. Census Bureau via us-atlas.</p>
+  </footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
